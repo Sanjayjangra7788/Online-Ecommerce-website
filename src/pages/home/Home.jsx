@@ -60,7 +60,7 @@ const FeaturedCard = memo(function FeaturedCard({ item, onAddToCart, onToggleWis
       <Link
         to={`/products/${item.id}`}
         className="relative block overflow-hidden flex-shrink-0"
-        style={{ height: "230px", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
+        style={{ height: "clamp(140px, 42vw, 230px)", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
       >
         {item.discountPercentage > 5 && (
           <div
@@ -120,15 +120,16 @@ const FeaturedCard = memo(function FeaturedCard({ item, onAddToCart, onToggleWis
         </div>
         <div style={{ height: "1px", background: "rgba(255,255,255,0.05)" }} />
         <div className="flex items-center justify-between gap-2 mt-auto">
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-bold text-[19px] text-white leading-none">${item.price}</span>
+          <div className="flex items-baseline gap-1.5 min-w-0 flex-shrink">
+            <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap">${item.price}</span>
             {item.discountPercentage > 0 && (
-              <span className="text-[11px] line-through" style={{ color: "rgba(255,255,255,0.25)" }}>${orig}</span>
+              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "rgba(255,255,255,0.25)" }}>${orig}</span>
             )}
           </div>
           <button
             onClick={() => onAddToCart(item)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[11.5px] font-semibold flex-shrink-0"
+            aria-label="Add to Cart"
+            className="flex items-center justify-center gap-1.5 w-8 h-8 sm:w-auto sm:h-auto sm:px-3.5 sm:py-2 rounded-full text-[11.5px] font-semibold flex-shrink-0"
             style={{
               background: "linear-gradient(135deg, #d4a843, #c9a84c, #b8922e)",
               color: "#0f0e0d",
@@ -144,7 +145,7 @@ const FeaturedCard = memo(function FeaturedCard({ item, onAddToCart, onToggleWis
               e.currentTarget.style.boxShadow = "0 3px 12px rgba(201,168,76,0.3)";
             }}
           >
-            <FaShoppingCart className="text-[10px]" /> Add to Cart
+            <FaShoppingCart className="text-[12px] sm:text-[10px]" /> <span className="hidden sm:inline">Add to Cart</span>
           </button>
         </div>
       </div>
@@ -161,7 +162,7 @@ const CardSkeleton = () => (
       border: "1px solid rgba(255,255,255,0.07)",
     }}
   >
-    <div className="skeleton" style={{ height: "230px" }} />
+    <div className="skeleton" style={{ height: "clamp(140px, 42vw, 230px)" }} />
     <div className="px-4 pt-3.5 pb-4 flex flex-col gap-3">
       <div className="skeleton h-2.5 rounded-full w-1/3" />
       <div className="skeleton h-4 rounded-lg w-5/6" />
@@ -202,7 +203,7 @@ function Home() {
     <div className="space-y-20">
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden rounded-[36px] min-h-[580px] flex items-center px-10 lg:px-16 py-16"
+      <section className="relative overflow-hidden rounded-[24px] sm:rounded-[36px] min-h-[420px] sm:min-h-[580px] flex items-center px-5 sm:px-10 lg:px-16 py-10 sm:py-16"
         style={{ background: "linear-gradient(135deg,#0F0E0D 0%,#1a1815 40%,#2d2620 100%)" }}>
         <div className="absolute top-[-80px] right-[-80px] w-[400px] h-[400px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(201,168,76,.2) 0%,transparent 70%)" }} />
@@ -232,7 +233,7 @@ function Home() {
                 Explore Collection
               </Link>
             </div>
-            <div className="flex gap-10 mt-10 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,.1)" }}>
+            <div className="flex flex-wrap gap-6 sm:gap-10 mt-10 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,.1)" }}>
               {[["50K+","Happy Customers"],["1K+","Products"],["4.9★","Rating"]].map(([v,l]) => (
                 <div key={l}>
                   <p className="font-bold" style={{ color: "var(--gold)", fontSize: "24px" }}>{v}</p>
@@ -289,7 +290,7 @@ function Home() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {CATEGORIES.map(({ name, emoji, cat }) => (
             <Link key={name} to={`/products?category=${cat}`}>
-              <div className="rounded-[22px] p-5 text-center transition card-lift luxury-glass-card"
+              <div className="flex flex-col items-center rounded-[22px] p-5 text-center transition card-lift luxury-glass-card"
                 style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="text-[34px] mb-3 transition hover:scale-110 block">{emoji}</div>
                 <h3 className="font-semibold text-[13px] text-white">{name}</h3>
@@ -332,7 +333,7 @@ function Home() {
       {/* ── SALE BANNER ── */}
       <section className="rounded-[32px] overflow-hidden"
         style={{ background: "linear-gradient(135deg,#1a1510,#2d2010)", border: "1px solid rgba(201,168,76,0.2)" }}>
-        <div className="flex flex-col lg:flex-row items-center gap-10 p-10 lg:p-14">
+        <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 p-6 sm:p-10 lg:p-14">
           <div className="flex-1">
             <span className="text-[11px] tracking-widest uppercase font-bold" style={{ color: "var(--gold)" }}>Limited Time</span>
             <h2 className="font-display mt-3 leading-tight text-white" style={{ fontSize: "clamp(30px,5vw,50px)", fontWeight: 600 }}>
@@ -366,16 +367,16 @@ function Home() {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {TESTIMONIALS.map(({ name, rating, text, avatar }) => (
-            <div key={name} className="p-7 rounded-2xl luxury-glass-card"
+            <div key={name} className="flex flex-col sm:flex-row gap-1 sm:gap-4 w-full p-6 sm:p-7 rounded-2xl luxury-glass-card !items-stretch sm:!items-center"
               style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-4 sm:mb-0 sm:flex-shrink-0">
                 {[...Array(rating)].map((_, j) => <FaStar key={j} style={{ color: "var(--gold)" }} className="text-[13px]" />)}
               </div>
-              <p className="text-[14px] leading-7" style={{ color: "rgba(255,255,255,0.6)" }}>"{text}"</p>
-              <div className="flex items-center gap-3 mt-5">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-bold"
+              <p className="text-[14px] leading-7 flex-1" style={{ color: "rgba(255,255,255,0.6)" }}>"{text}"</p>
+              <div className="flex items-center gap-3 mt-5 sm:mt-0 sm:flex-shrink-0">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-bold flex-shrink-0"
                   style={{ background: "var(--gold)", color: "var(--ink)" }}>{avatar}</div>
-                <p className="font-semibold text-[14px] text-white">{name}</p>
+                <p className="font-semibold text-[14px] text-white whitespace-nowrap">{name}</p>
               </div>
             </div>
           ))}
@@ -383,7 +384,7 @@ function Home() {
       </section>
 
       {/* ── NEWSLETTER ── */}
-      <section className="rounded-[32px] text-center py-14 px-6"
+      <section className="rounded-[32px] text-center py-10 sm:py-14 px-5 sm:px-6"
         style={{ background: "linear-gradient(135deg,#1a1510,#2d2010)", border: "1px solid rgba(201,168,76,0.2)" }}>
         <p className="text-[12px] tracking-widest uppercase font-bold mb-3" style={{ color: "var(--gold)" }}>Newsletter</p>
         <h2 className="font-display font-semibold text-white mb-4" style={{ fontSize: "clamp(24px,4vw,40px)" }}>Stay in the Loop</h2>
@@ -393,9 +394,9 @@ function Home() {
         <div className="flex max-w-[420px] mx-auto overflow-hidden rounded-full"
           style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.15)" }}>
           <input type="email" placeholder="Your email address"
-            className="flex-1 bg-transparent px-6 py-4 text-[14px] text-white outline-none placeholder-white/30" />
+            className="flex-1 min-w-0 bg-transparent px-4 sm:px-6 py-4 text-[14px] text-white outline-none placeholder-white/30" />
           <button onClick={() => toast.success("Subscribed! Welcome to SanVora ✨")}
-            className="px-6 m-1.5 rounded-full font-semibold text-[13px] transition hover:opacity-90"
+            className="flex-shrink-0 px-4 sm:px-6 m-1.5 rounded-full font-semibold text-[12px] sm:text-[13px] transition hover:opacity-90"
             style={{ background: "var(--gold)", color: "var(--ink)" }}>
             Subscribe
           </button>

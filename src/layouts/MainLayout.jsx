@@ -151,16 +151,16 @@ function MainLayout() {
       <AnnouncementBar />
 
       <header className="fixed z-[999] transition-all duration-300" style={navStyle}>
-        <div className="max-w-[1440px] mx-auto px-5 lg:px-10">
-          <div className="h-[68px] flex items-center justify-between gap-6">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-5 lg:px-10">
+          <div className="h-[60px] sm:h-[68px] flex items-center justify-between gap-1.5 sm:gap-6">
 
             <button onClick={() => setMobileOpen(true)} aria-label="Menu"
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition">
+              className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full hover:bg-black/5 transition">
               <FaBars style={{ color: "var(--white)" }} />
             </button>
 
-            <Link to="/" className="flex-shrink-0">
-              <h1 className="font-display text-[30px] lg:text-[34px] font-bold tracking-tight leading-none">
+            <Link to="/" className="flex-shrink-0 min-w-0">
+              <h1 className="font-display font-bold tracking-tight leading-none truncate" style={{ fontSize: "clamp(20px,5.5vw,34px)" }}>
                 <span style={{ color: "var(--white)" }}>San</span>
                 <span style={{ color: "var(--gold)" }}>Vora</span>
               </h1>
@@ -176,14 +176,14 @@ function MainLayout() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
               <button onClick={() => setSearchOpen(true)} aria-label="Search"
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition">
-                <FaSearch className="text-[15px]" style={{ color: "var(--muted)" }} />
+                className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition flex-shrink-0">
+                <FaSearch className="text-[13px] sm:text-[15px]" style={{ color: "var(--muted)" }} />
               </button>
 
-              <Link to="/wishlist" aria-label="Wishlist" className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition">
-                <FaHeart className="text-[17px]" style={{ color: "var(--muted)" }} />
+              <Link to="/wishlist" aria-label="Wishlist" className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition flex-shrink-0">
+                <FaHeart className="text-[15px] sm:text-[17px]" style={{ color: "var(--muted)" }} />
                 {wishlistCount > 0 && (
                   <span className="badge-pulse absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white text-[9px] flex items-center justify-center font-bold"
                     style={{ background: "var(--red)" }}>{wishlistCount}</span>
@@ -191,9 +191,9 @@ function MainLayout() {
               </Link>
 
               <Link to="/cart" aria-label="Cart"
-                className="relative flex items-center gap-2 px-4 h-10 rounded-full font-medium text-[13px] transition hover:opacity-90"
+                className="relative flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 h-9 sm:h-10 rounded-full font-medium text-[13px] transition hover:opacity-90 flex-shrink-0"
                 style={{ background: "var(--ink)", color: "white" }}>
-                <FaShoppingCart className="text-[14px]" />
+                <FaShoppingCart className="text-[13px] sm:text-[14px]" />
                 <span className="hidden sm:block">Cart</span>
                 {cartCount > 0 && (
                   <span className="w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold"
@@ -284,7 +284,7 @@ function MainLayout() {
               <FaSearch style={{ color: "var(--gold)" }} className="text-xl flex-shrink-0" />
               <input autoFocus type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for products, brands…"
-                className="flex-1 h-full text-[16px] bg-transparent outline-none" style={{ color: "var(--ink)" }} />
+                className="flex-1 min-w-0 h-full text-[16px] bg-transparent outline-none" style={{ color: "var(--ink)" }} />
               <button type="button" onClick={() => setSearchOpen(false)} className="flex-shrink-0 hover:opacity-60 transition">
                 <FaTimes style={{ color: "var(--muted)" }} />
               </button>
@@ -297,7 +297,7 @@ function MainLayout() {
       {mobileOpen && (
         <div className="fixed inset-0 z-[100] flex lg:hidden">
           <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.5)" }} onClick={() => setMobileOpen(false)} />
-          <div className="relative w-[280px] flex flex-col shadow-2xl" style={{ background: "white" }}>
+          <div className="relative w-[82vw] max-w-[280px] flex flex-col shadow-2xl" style={{ background: "white" }}>
             <div className="flex items-center justify-between px-5 h-[68px]" style={{ borderBottom: "1px solid var(--border)" }}>
               <Link to="/" className="font-display text-[26px] font-bold">
                 <span style={{ color: "var(--ink)" }}>San</span><span style={{ color: "var(--gold)" }}>Vora</span>
@@ -330,7 +330,7 @@ function MainLayout() {
         </div>
       )}
 
-      <main className="flex-1 max-w-[1380px] mx-auto w-full px-5 lg:px-10 pt-[148px] pb-10 relative z-10">
+      <main className="flex-1 max-w-[1380px] mx-auto w-full px-4 sm:px-5 lg:px-10 pt-[108px] lg:pt-[148px] pb-10 relative z-10">
         <Outlet />
       </main>
 

@@ -63,7 +63,7 @@ function ProductDetails() {
       <div className="grid lg:grid-cols-2 gap-14">
         {/* IMAGES */}
         <div>
-          <div className="rounded-3xl overflow-hidden mb-4 img-zoom" style={{ height: "500px", background: "var(--cream)", border: "1px solid var(--border)" }}>
+          <div className="rounded-3xl overflow-hidden mb-4 img-zoom" style={{ height: "clamp(320px, 55vw, 500px)", background: "var(--cream)", border: "1px solid var(--border)" }}>
             {/* Main image: eager, high priority — it's above the fold */}
             <img src={mainImage} alt={product.title} fetchPriority="high"
               className="w-full h-full object-contain p-8" />
@@ -120,27 +120,27 @@ function ProductDetails() {
           </div>
 
           {/* Qty + Cart */}
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4">
             <div className="flex items-center rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
               <button onClick={() => setQty(Math.max(1, qty - 1))}
-                className="w-12 h-14 flex items-center justify-center hover:bg-black/5 transition text-lg" style={{ color: "var(--ink)" }}>
+                className="w-11 sm:w-12 h-12 sm:h-14 flex items-center justify-center hover:bg-black/5 transition text-lg" style={{ color: "var(--ink)" }}>
                 <FaMinus className="text-[12px]" />
               </button>
-              <span className="w-12 text-center font-bold text-[16px]" style={{ color: "var(--ink)" }}>{qty}</span>
+              <span className="w-10 sm:w-12 text-center font-bold text-[16px]" style={{ color: "var(--ink)" }}>{qty}</span>
               <button onClick={() => setQty(Math.min(product.stock, qty + 1))}
-                className="w-12 h-14 flex items-center justify-center hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
+                className="w-11 sm:w-12 h-12 sm:h-14 flex items-center justify-center hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
                 <FaPlus className="text-[12px]" />
               </button>
             </div>
-            <button onClick={handleAddToCart} disabled={product.stock === 0}
-              className="flex-1 h-14 rounded-2xl font-semibold text-[15px] flex items-center justify-center gap-3 transition hover:opacity-90 disabled:opacity-50"
-              style={{ background: "var(--ink)", color: "white" }}>
-              <FaShoppingCart className="text-[14px]" /> Add to Cart
-            </button>
             <button onClick={handleWishlist}
-              className="w-14 h-14 rounded-2xl flex items-center justify-center transition hover:scale-110"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition hover:scale-110 order-1 sm:order-none"
               style={{ border: "1px solid var(--border)", background: isWishlisted ? "#FFF0F0" : "white" }}>
               <FaHeart style={{ color: isWishlisted ? "var(--red)" : "var(--border)" }} />
+            </button>
+            <button onClick={handleAddToCart} disabled={product.stock === 0}
+              className="flex-1 min-w-[160px] h-12 sm:h-14 rounded-2xl font-semibold text-[14px] sm:text-[15px] flex items-center justify-center gap-3 transition hover:opacity-90 disabled:opacity-50"
+              style={{ background: "var(--ink)", color: "white" }}>
+              <FaShoppingCart className="text-[14px]" /> Add to Cart
             </button>
           </div>
 
@@ -152,9 +152,9 @@ function ProductDetails() {
           </Link>
 
           {/* Guarantees */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {[[FaTruck,"Free Shipping","Orders $100+"],[FaShieldAlt,"Secure Pay","SSL encrypted"],[FaUndo,"Easy Returns","30 days"]].map(([Icon,title,desc]) => (
-              <div key={title} className="text-center p-4 rounded-2xl" style={{ background: "var(--cream)" }}>
+              <div key={title} className="text-center p-2.5 sm:p-4 rounded-2xl" style={{ background: "var(--cream)" }}>
                 <Icon className="mx-auto mb-2 text-[18px]" style={{ color: "var(--gold)" }} />
                 <p className="font-semibold text-[12px]" style={{ color: "var(--ink)" }}>{title}</p>
                 <p className="text-[11px] mt-0.5" style={{ color: "var(--muted)" }}>{desc}</p>

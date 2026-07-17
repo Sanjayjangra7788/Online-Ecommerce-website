@@ -78,20 +78,20 @@ function Cart() {
                 <motion.div key={item.id}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.3 }}
-                  className="flex gap-5 p-5 rounded-2xl" style={{ background: "white", border: "1px solid var(--border)" }}>
+                  className="flex gap-3 sm:gap-5 p-3 sm:p-5 rounded-2xl" style={{ background: "white", border: "1px solid var(--border)" }}>
 
                   <Link to={`/products/${item.id}`} className="flex-shrink-0">
-                    <div className="w-[110px] h-[110px] rounded-xl overflow-hidden flex items-center justify-center"
+                    <div className="w-[80px] h-[80px] sm:w-[110px] sm:h-[110px] rounded-xl overflow-hidden flex items-center justify-center"
                       style={{ background: "var(--cream)" }}>
                       <img src={item.thumbnail} alt={item.title} className="max-w-full max-h-full object-contain p-2" />
                     </div>
                   </Link>
 
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
+                    <div className="flex items-start justify-between gap-2 sm:gap-3">
+                      <div className="min-w-0">
                         <Link to={`/products/${item.id}`}>
-                          <h2 className="font-semibold text-[15px] leading-snug hover:opacity-70 transition truncate max-w-[280px]"
+                          <h2 className="font-semibold text-[13.5px] sm:text-[15px] leading-snug hover:opacity-70 transition truncate"
                             style={{ color: "var(--ink)" }}>{item.title}</h2>
                         </Link>
                         <p className="text-[12px] capitalize mt-0.5" style={{ color: "var(--muted)" }}>{item.category}</p>
@@ -103,7 +103,7 @@ function Cart() {
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between mt-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3 mt-4">
                       <div className="flex items-center rounded-full h-[36px] overflow-hidden"
                         style={{ border: "1px solid var(--border)" }}>
                         <button onClick={() => dispatch(decreaseQty(item.id))}
@@ -142,7 +142,7 @@ function Cart() {
                   placeholder="SANVORA10, SAVE20, VIP30"
                   value={promoCode}
                   onChange={(e) => { setPromoCode(e.target.value); setPromoError(""); }}
-                  className="flex-1 h-[42px] px-4 rounded-xl text-[13px] outline-none"
+                  className="flex-1 min-w-0 h-[42px] px-4 rounded-xl text-[13px] outline-none"
                   style={{ background: "var(--cream)", border: `1px solid ${promoError ? "var(--red)" : "var(--border)"}`, color: "var(--ink)" }}
                 />
                 <button

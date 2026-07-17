@@ -31,27 +31,27 @@ function Shipping() {
   return (
     <div className="fade-up max-w-[640px] mx-auto">
       {/* Steps */}
-      <div className="flex items-center justify-center gap-0 mb-12">
+      <div className="flex items-center justify-center gap-0 mb-10 sm:mb-12">
         {STEPS.map((step, i) => (
           <div key={step} className="flex items-center">
             <div className="flex flex-col items-center">
-              <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[13px] transition"
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-[12px] sm:text-[13px] transition"
                 style={{
                   background: i === 0 ? "var(--ink)" : "var(--border)",
                   color: i === 0 ? "white" : "var(--muted)",
                 }}>
                 {i + 1}
               </div>
-              <span className="text-[11px] mt-1.5 font-medium" style={{ color: i === 0 ? "var(--ink)" : "var(--muted)" }}>{step}</span>
+              <span className="text-[10px] sm:text-[11px] mt-1.5 font-medium whitespace-nowrap" style={{ color: i === 0 ? "var(--ink)" : "var(--muted)" }}>{step}</span>
             </div>
             {i < STEPS.length - 1 && (
-              <div className="w-20 h-[2px] mb-4" style={{ background: "var(--border)" }} />
+              <div className="w-8 sm:w-20 h-[2px] mb-4" style={{ background: "var(--border)" }} />
             )}
           </div>
         ))}
       </div>
 
-      <div className="p-8 rounded-3xl" style={{ background: "white", border: "1px solid var(--border)" }}>
+      <div className="p-5 sm:p-8 rounded-3xl" style={{ background: "white", border: "1px solid var(--border)" }}>
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 rounded-full flex items-center justify-center"
             style={{ background: "rgba(201,168,76,0.1)" }}>
@@ -64,14 +64,14 @@ function Shipping() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">
               <label className="block text-[12px] font-semibold mb-1.5" style={{ color: "var(--ink)" }}>Full Name</label>
               <input name="fullName" placeholder="John Doe" value={formData.fullName} onChange={handleChange} required
                 className="w-full h-[48px] px-4 rounded-xl text-[14px]"
                 style={{ background: "var(--cream)", border: "1px solid var(--border)", color: "var(--ink)" }} />
             </div>
-            <div className="col-span-2">
+            <div className="sm:col-span-2">
               <label className="block text-[12px] font-semibold mb-1.5" style={{ color: "var(--ink)" }}>Street Address</label>
               <input name="address" placeholder="123 Main Street, Apt 4B" value={formData.address} onChange={handleChange} required
                 className="w-full h-[48px] px-4 rounded-xl text-[14px]"

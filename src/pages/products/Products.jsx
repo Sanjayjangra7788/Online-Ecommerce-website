@@ -52,7 +52,7 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
       <Link
         to={`/products/${item.id}`}
         className="relative block overflow-hidden flex-shrink-0"
-        style={{ height: "230px", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
+        style={{ height: "clamp(140px, 42vw, 230px)", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
       >
         {/* Discount badge */}
         {item.discountPercentage > 5 && (
@@ -146,12 +146,12 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
 
         {/* Price + CTA */}
         <div className="flex items-center justify-between gap-2 mt-auto">
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-bold text-[19px] text-white leading-none">
+          <div className="flex items-baseline gap-1.5 min-w-0 flex-shrink">
+            <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap">
               ${item.price}
             </span>
             {item.discountPercentage > 0 && (
-              <span className="text-[11px] line-through" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "rgba(255,255,255,0.25)" }}>
                 ${orig}
               </span>
             )}
@@ -159,7 +159,8 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
 
           <button
             onClick={() => onAddToCart(item)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[11.5px] font-semibold flex-shrink-0"
+            aria-label="Add to Cart"
+            className="flex items-center justify-center gap-1.5 w-8 h-8 sm:w-auto sm:h-auto sm:px-3.5 sm:py-2 rounded-full text-[11.5px] font-semibold flex-shrink-0"
             style={{
               background: "linear-gradient(135deg, #d4a843, #c9a84c, #b8922e)",
               color: "#0f0e0d",
@@ -175,8 +176,8 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
               e.currentTarget.style.boxShadow = "0 3px 12px rgba(201,168,76,0.3)";
             }}
           >
-            <FaShoppingCart className="text-[10px]" />
-            Add to Cart
+            <FaShoppingCart className="text-[12px] sm:text-[10px]" />
+            <span className="hidden sm:inline">Add to Cart</span>
           </button>
         </div>
       </div>
@@ -194,7 +195,7 @@ const Skeleton = () => (
     }}
   >
     {/* image zone */}
-    <div className="skeleton" style={{ height: "230px" }} />
+    <div className="skeleton" style={{ height: "clamp(140px, 42vw, 230px)" }} />
     {/* body */}
     <div className="px-4 pt-3.5 pb-4 flex flex-col gap-3">
       <div className="skeleton h-2.5 rounded-full w-1/3" />
@@ -280,12 +281,12 @@ function Products() {
       {/* CONTROLS */}
       <div className="flex flex-wrap gap-3 mb-6 items-center">
         {/* Search */}
-        <div className="flex items-center gap-3 flex-1 min-w-[200px] max-w-[340px] px-5 h-[46px] rounded-full"
+        <div className="flex items-center gap-3 flex-1 min-w-[200px] w-full sm:w-auto sm:max-w-[340px] px-5 h-[46px] rounded-full"
           style={{ background: "white", border: "1px solid var(--border)" }}>
           <FaSearch className="text-[13px]" style={{ color: "var(--muted)" }} />
           <input type="text" placeholder="Search products…" value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-transparent text-[14px] outline-none" style={{ color: "var(--ink)" }} />
+            className="flex-1 min-w-0 bg-transparent text-[14px] outline-none" style={{ color: "var(--ink)" }} />
           {search && <button onClick={() => setSearch("")}><FaTimes className="text-[11px]" style={{ color: "var(--muted)" }} /></button>}
         </div>
 
@@ -378,7 +379,7 @@ function Products() {
             return (
               <div
                 key={item.id}
-                className="flex gap-4 p-4 rounded-[18px]"
+                className="flex flex-wrap sm:flex-nowrap gap-4 p-4 rounded-[18px]"
                 style={{
                   background: "linear-gradient(160deg, #1c1a15 0%, #141210 60%, #0e0c09 100%)",
                   border: "1px solid rgba(255,255,255,0.07)",
@@ -410,7 +411,7 @@ function Products() {
                 </Link>
 
                 {/* Info */}
-                <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                <div className="flex-1 min-w-[140px] flex flex-col justify-center gap-1.5">
                   <p className="text-[9px] uppercase tracking-[3px] font-bold" style={{ color: "var(--gold)" }}>
                     {item.brand || item.category}
                   </p>

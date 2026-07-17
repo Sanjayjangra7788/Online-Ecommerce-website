@@ -25,16 +25,16 @@ function Profile() {
 
       {/* Profile card */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-        className="p-8 rounded-3xl mb-6" style={{ background: "white", border: "1px solid var(--border)" }}>
-        <div className="flex items-center gap-6">
-          <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-[28px] font-bold"
+        className="p-5 sm:p-8 rounded-3xl mb-6" style={{ background: "white", border: "1px solid var(--border)" }}>
+        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 text-center sm:text-left">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-white text-[24px] sm:text-[28px] font-bold flex-shrink-0"
             style={{ background: "var(--gold)" }}>
             {user?.name?.[0]?.toUpperCase() || "U"}
           </div>
-          <div className="flex-1">
-            <h2 className="font-semibold text-[22px]" style={{ color: "var(--ink)" }}>{user?.name || "Guest User"}</h2>
-            <p className="flex items-center gap-2 text-[14px] mt-1" style={{ color: "var(--muted)" }}>
-              <FaEnvelope className="text-[12px]" /> {user?.email || "Not signed in"}
+          <div className="flex-1 min-w-0 w-full">
+            <h2 className="font-semibold text-[20px] sm:text-[22px] truncate" style={{ color: "var(--ink)" }}>{user?.name || "Guest User"}</h2>
+            <p className="flex items-center justify-center sm:justify-start gap-2 text-[14px] mt-1 truncate" style={{ color: "var(--muted)" }}>
+              <FaEnvelope className="text-[12px] flex-shrink-0" /> <span className="truncate">{user?.email || "Not signed in"}</span>
             </p>
             {user?.role && (
               <span className="inline-flex items-center gap-1 mt-2 px-3 py-1 rounded-full text-[11px] font-semibold capitalize"
