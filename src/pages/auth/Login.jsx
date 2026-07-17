@@ -5,6 +5,8 @@ import { loginSuccess } from "../../features/auth/authSlice";
 import { FaEye, FaEyeSlash, FaArrowRight, FaGoogle, FaGithub } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { auth0Config } from "../../auth/auth0Config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const DOMAIN   = auth0Config.domain;
 const CLIENT_ID = auth0Config.clientId;
@@ -22,45 +24,69 @@ function Login() {
   const [error,      setError]      = useState("");
 
   // ── LOGIN via Auth0 Resource Owner Password Grant ─────────────
+  // const handleLogin = async () => {
+  //   const res = await fetch(`https://${DOMAIN}/oauth/token`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       grant_type: "http://auth0.com/oauth/grant-type/password-realm",
+  //       realm:      "Username-Password-Authentication",
+  //       username:   email,
+  //       password:   password,
+  //       client_id:  CLIENT_ID,
+  //       scope:      "openid profile email",
+  //     }),
+  //   });
+
+  //   const data = await res.json();
+  //   console.log("hdhdhhdhdhdhdhdd",data)
+
+  //   if (!res.ok) {
+  //     throw new Error(data.error_description || "Login failed");
+  //   }
+
+  //   // Access token se user info fetch karo
+  //   const userRes = await fetch(`https://${DOMAIN}/userinfo`, {
+  //     headers: { Authorization: `Bearer ${data.access_token}` },
+  //   });
+  //   const userInfo = await userRes.json();
+
+  //   dispatch(loginSuccess({
+  //     token: data.access_token,
+  //     user: {
+  //       id:      userInfo.sub,
+  //       name:    userInfo.name,
+  //       email:   userInfo.email,
+  //       picture: userInfo.picture,
+  //     },
+  //   }));
+
+  //   navigate("/");
+  // };
+
   const handleLogin = async () => {
-    const res = await fetch(`https://${DOMAIN}/oauth/token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        grant_type: "http://auth0.com/oauth/grant-type/password-realm",
-        realm:      "Username-Password-Authentication",
-        username:   email,
-        password:   password,
-        client_id:  CLIENT_ID,
-        scope:      "openid profile email",
-      }),
-    });
+  const credential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
 
-    const data = await res.json();
-    console.log("hdhdhhdhdhdhdhdd",data)
+  const user = credential.user;
 
-    if (!res.ok) {
-      throw new Error(data.error_description || "Login failed");
-    }
-
-    // Access token se user info fetch karo
-    const userRes = await fetch(`https://${DOMAIN}/userinfo`, {
-      headers: { Authorization: `Bearer ${data.access_token}` },
-    });
-    const userInfo = await userRes.json();
-
-    dispatch(loginSuccess({
-      token: data.access_token,
+  dispatch(
+    loginSuccess({
+      token: await user.getIdToken(),
       user: {
-        id:      userInfo.sub,
-        name:    userInfo.name,
-        email:   userInfo.email,
-        picture: userInfo.picture,
+        id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        picture: user.photoURL,
       },
-    }));
+    })
+  );
 
-    navigate("/");
-  };
+  navigate("/");
+};
 
   // ── REGISTER via Auth0 Database Signup API ────────────────────
   const handleRegister = async () => {
