@@ -1,8 +1,3 @@
-// src/routes/AppRoutes.jsx
-// ──────────────────────────────────────────────────────────────────
-// BrowserRouter HATA DIYA — ab main.jsx mein hai
-// Auth0ProviderWithNavigate ke andar hona zaroori hai
-// ──────────────────────────────────────────────────────────────────
 
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
@@ -15,6 +10,7 @@ const ProductDetails = lazy(() => import("../pages/products/ProductDetails"));
 const Cart           = lazy(() => import("../pages/cart/Cart"));
 const Wishlist       = lazy(() => import("../pages/wishlist/Wishlist"));
 const Login          = lazy(() => import("../pages/auth/Login"));
+const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Profile        = lazy(() => import("../pages/profile/Profile"));
 const Orders         = lazy(() => import("../pages/orders/Orders"));
 const Shipping       = lazy(() => import("../pages/checkout/Shipping"));
@@ -37,13 +33,13 @@ function PageLoader() {
 
 function AppRoutes() {
   return (
-    // ⚠️ BrowserRouter NAHI hai yahan — main.jsx mein hai
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index              element={<Suspense fallback={<PageLoader />}><Home /></Suspense>} />
         <Route path="products"    element={<Suspense fallback={<PageLoader />}><Products /></Suspense>} />
         <Route path="products/:id" element={<Suspense fallback={<PageLoader />}><ProductDetails /></Suspense>} />
         <Route path="login"       element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
+        <Route path="forgot-password" element={<Suspense fallback={<PageLoader />}><ForgotPassword /></Suspense>} />
         <Route path="wishlist"    element={<Suspense fallback={<PageLoader />}><Wishlist /></Suspense>} />
 
         {/* Protected Routes — sirf logged in users ke liye */}
