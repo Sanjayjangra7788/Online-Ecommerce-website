@@ -440,7 +440,7 @@ function Products() {
                 </div>
 
                 {/* Bottom row on mobile: price left, actions right, full width */}
-                <div className="flex items-center justify-between gap-3 pt-2 sm:pt-0 sm:flex-col sm:items-end sm:justify-center sm:gap-2.5 flex-shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="flex items-center justify-between gap-3 pt-2 sm:pt-0 border-t border-white sm:border-t-0 sm:flex-col sm:items-end sm:justify-center sm:gap-2.5 flex-shrink-0">
                   <div className="text-left sm:text-right whitespace-nowrap flex items-baseline sm:block gap-2">
                     <p className="font-bold text-[18px] text-white leading-none whitespace-nowrap">${item.price}</p>
                     {item.discountPercentage > 0 && (
