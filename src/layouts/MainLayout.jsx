@@ -9,12 +9,12 @@ import { useSelector } from "react-redux";
 import useAuth0Sync from "../auth/useAuth0Sync";
 
 const AnnouncementBar = memo(() => (
-  <div className="hidden lg:block text-white text-center py-2.5 text-[12px] font-medium tracking-widest uppercase"
+  <div className="block text-white text-center py-2 sm:py-2.5 text-[10px] sm:text-[12px] font-medium tracking-widest uppercase"
     style={{ background: "var(--ink)" }}>
     <div className="overflow-hidden">
-      <div className="marquee-inner flex gap-24 whitespace-nowrap">
+      <div className="marquee-inner flex gap-10 sm:gap-24 whitespace-nowrap">
         {[...Array(4)].map((_, i) => (
-          <span key={i} className="flex gap-24 shrink-0">
+          <span key={i} className="flex gap-10 sm:gap-24 shrink-0">
             <span>✦ Free shipping over $100</span>
             <span>✦ New arrivals every week</span>
             <span>✦ Premium quality guaranteed</span>
