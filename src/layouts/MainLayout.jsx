@@ -349,15 +349,15 @@ function MainLayout() {
         aria-label="Scroll to top"
         className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-[900] w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
         style={{
-          background: "var(--ink)",
-          color: "white",
-          boxShadow: "0 6px 20px rgba(0,0,0,0.4)",
+          background: "linear-gradient(135deg, #d4a843, #c9a84c, #b8922e)",
+          color: "var(--ink)",
+          boxShadow: "0 6px 20px rgba(201,168,76,0.45)",
           opacity: showScrollTop ? 1 : 0,
           transform: showScrollTop ? "translateY(0) scale(1)" : "translateY(16px) scale(0.85)",
           pointerEvents: showScrollTop ? "auto" : "none",
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--ink)"; }}
-        onMouseLeave={e => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "white"; }}
+        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(0) scale(1.08)"; e.currentTarget.style.boxShadow = "0 8px 26px rgba(201,168,76,0.6)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(201,168,76,0.45)"; }}
       >
         <FaArrowUp className="text-[15px] sm:text-[16px]" />
       </button>
