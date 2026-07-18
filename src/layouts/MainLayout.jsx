@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   FaShoppingCart, FaHeart, FaSearch, FaTimes, FaBars,
   FaInstagram, FaTwitter, FaFacebookF, FaYoutube, FaUser,
-  FaSignOutAlt, FaClipboardList, FaChevronDown,
+  FaSignOutAlt, FaClipboardList, FaChevronDown, FaArrowUp,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import useAuth0Sync from "../auth/useAuth0Sync";
@@ -86,6 +86,7 @@ function MainLayout() {
   const [searchOpen,  setSearchOpen]  = useState(false);
   const [userOpen,    setUserOpen]    = useState(false);
   const [scrolled,    setScrolled]    = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const userRef = useRef(null);
 
@@ -93,12 +94,20 @@ function MainLayout() {
     let ticking = false;
     const handler = () => {
       if (!ticking) {
-        requestAnimationFrame(() => { setScrolled(window.scrollY > 20); ticking = false; });
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          setShowScrollTop(window.scrollY > 400);
+          ticking = false;
+        });
         ticking = true;
       }
     };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -333,6 +342,24 @@ function MainLayout() {
       <main className="flex-1 max-w-[1380px] mx-auto w-full px-4 sm:px-5 lg:px-10 pt-[108px] lg:pt-[148px] pb-10 relative z-10">
         <Outlet />
       </main>
+
+      <button
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-[900] w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
+        style={{
+          background: "var(--ink)",
+          color: "white",
+          boxShadow: "0 6px 20px rgba(0,0,0,0.4)",
+          opacity: showScrollTop ? 1 : 0,
+          transform: showScrollTop ? "translateY(0) scale(1)" : "translateY(16px) scale(0.85)",
+          pointerEvents: showScrollTop ? "auto" : "none",
+        }}
+        onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--ink)"; }}
+        onMouseLeave={e => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "white"; }}
+      >
+        <FaArrowUp className="text-[15px] sm:text-[16px]" />
+      </button>
 
       <Footer />
     </div>
