@@ -569,26 +569,31 @@ function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-[440px]">
 
-        {/* ── Logo ────────────────────────────────────────────── */}
-        <div className="text-center mb-10">
-          <Link to="/" className="inline-block">
-            <h1 className="font-display font-bold" style={{ fontSize: "40px" }}>
-              <span style={{ color: "var(--ink)" }}>San</span>
-              <span style={{ color: "var(--gold)" }}>Vora</span>
-            </h1>
-          </Link>
-          <p className="mt-2 text-[14px]" style={{ color: "var(--muted)" }}>
-            {isRegister ? "Create your account" : "Sign in to your account"}
-          </p>
-        </div>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="p-8 rounded-3xl shadow-xl"
+          className="p-5 rounded-3xl shadow-xl"
           style={{ background: "white", border: "1px solid var(--border)" }}
         >
+            {/* ── Logo ────────────────────────────────────────────── */}
+        <div className="text-center mb-5">
+          <Link to="/" className="inline-block">
+            <h2 className="font-display font-bold" style={{ fontSize: "40px" }}>
+              <span style={{ color: "var(--ink)" }}>San</span>
+              <span style={{ color: "var(--gold)" }}>Vora</span>
+            </h2>
+          </Link>
+          <p className="text-[14px]" style={{ color: "var(--muted)" }}>
+            {isRegister ? "Create your account" : "Sign in to your account"}
+          </p>
+        </div>
+
+
+
+
           <form onSubmit={handleSubmit} className="space-y-5">
 
             {/* Name field — sirf Register mein dikhega */}
@@ -729,8 +734,6 @@ function Login() {
               {" "}— enterprise-grade authentication
             </p>
           </div>
-        </motion.div>
-
         {/* ── Toggle Login / Register ──────────────────────── */}
         <p className="text-center mt-6 text-[13px]" style={{ color: "var(--muted)" }}>
           {isRegister ? "Already have an account? " : "Don't have an account? "}
@@ -742,6 +745,8 @@ function Login() {
             {isRegister ? "Sign In" : "Create one"}
           </span>
         </p>
+        </motion.div>
+
       </div>
     </div>
   );
