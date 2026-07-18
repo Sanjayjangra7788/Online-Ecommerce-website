@@ -22,45 +22,80 @@ function Login() {
   const [error,      setError]      = useState("");
 
   // ── LOGIN via Auth0 Resource Owner Password Grant ─────────────
+  // const handleLogin = async () => {
+  //   const res = await fetch(`https://${DOMAIN}/oauth/token`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       grant_type: "http://auth0.com/oauth/grant-type/password-realm",
+  //       realm:      "Username-Password-Authentication",
+  //       username:   email,
+  //       password:   password,
+  //       client_id:  CLIENT_ID,
+  //       scope:      "openid profile email",
+  //     }),
+  //   });
+
+  //   const data = await res.json();
+  //   console.log("hdhdhhdhdhdhdhdd",data)
+
+  //   if (!res.ok) {
+  //     throw new Error(data.error_description || "Login failed");
+  //   }
+
+  //   // Access token se user info fetch karo
+  //   const userRes = await fetch(`https://${DOMAIN}/userinfo`, {
+  //     headers: { Authorization: `Bearer ${data.access_token}` },
+  //   });
+  //   const userInfo = await userRes.json();
+
+  //   dispatch(loginSuccess({
+  //     token: data.access_token,
+  //     user: {
+  //       id:      userInfo.sub,
+  //       name:    userInfo.name,
+  //       email:   userInfo.email,
+  //       picture: userInfo.picture,
+  //     },
+  //   }));
+
+  //   navigate("/");
+  // };
+
+
+
+
   const handleLogin = async () => {
-    const res = await fetch(`https://${DOMAIN}/oauth/token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        grant_type: "http://auth0.com/oauth/grant-type/password-realm",
-        realm:      "Username-Password-Authentication",
-        username:   email,
-        password:   password,
-        client_id:  CLIENT_ID,
-        scope:      "openid profile email",
-      }),
-    });
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
 
-    const data = await res.json();
-    console.log("hdhdhhdhdhdhdhdd",data)
+  const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.error_description || "Login failed");
-    }
+  if (!res.ok) {
+    throw new Error(data.error_description || "Login failed");
+  }
 
-    // Access token se user info fetch karo
-    const userRes = await fetch(`https://${DOMAIN}/userinfo`, {
-      headers: { Authorization: `Bearer ${data.access_token}` },
-    });
-    const userInfo = await userRes.json();
+  // baaki code same rahega — userinfo fetch karna wagerah
+  const userRes = await fetch(`https://${DOMAIN}/userinfo`, {
+    headers: { Authorization: `Bearer ${data.access_token}` },
+  });
+  const userInfo = await userRes.json();
 
-    dispatch(loginSuccess({
-      token: data.access_token,
-      user: {
-        id:      userInfo.sub,
-        name:    userInfo.name,
-        email:   userInfo.email,
-        picture: userInfo.picture,
-      },
-    }));
+  dispatch(loginSuccess({
+    token: data.access_token,
+    user: {
+      id: userInfo.sub,
+      name: userInfo.name,
+      email: userInfo.email,
+      picture: userInfo.picture,
+    },
+  }));
 
-    navigate("/");
-  };
+  navigate("/");
+};
 
 
 
