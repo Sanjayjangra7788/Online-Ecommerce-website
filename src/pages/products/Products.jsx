@@ -147,11 +147,11 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
         {/* Price + CTA */}
         <div className="flex flex-nowrap items-center justify-between gap-2 mt-auto overflow-hidden">
           <div className="flex flex-nowrap items-baseline gap-1.5 min-w-0 flex-1 overflow-hidden">
-            <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap">
+            <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap flex-shrink-0">
               ${item.price}
             </span>
             {item.discountPercentage > 0 && (
-              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "white" }}>
+              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap flex-shrink-0" style={{ color: "white" }}>
                 ${orig}
               </span>
             )}
@@ -379,7 +379,7 @@ function Products() {
             return (
               <div
                 key={item.id}
-                className="flex flex-wrap sm:flex-nowrap gap-4 p-4 rounded-[18px]"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-4 rounded-[18px]"
                 style={{
                   background: "linear-gradient(160deg, #1c1a15 0%, #141210 60%, #0e0c09 100%)",
                   border: "1px solid rgba(255,255,255,0.07)",
@@ -394,64 +394,67 @@ function Products() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* Thumbnail */}
-                <Link
-                  to={`/products/${item.id}`}
-                  className="flex-shrink-0 rounded-[14px] overflow-hidden flex items-center justify-center"
-                  style={{ width: "96px", height: "96px", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
-                >
-                  <img
-                    src={item.thumbnail} alt={item.title}
-                    loading="lazy" decoding="async"
-                    className="w-full h-full object-contain p-2.5"
-                    style={{ transition: "transform 0.4s ease" }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.08)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; }}
-                  />
-                </Link>
-
-                {/* Info */}
-                <div className="flex-1 min-w-[140px] flex flex-col justify-center gap-1.5">
-                  <p className="text-[9px] uppercase tracking-[3px] font-bold" style={{ color: "var(--gold)" }}>
-                    {item.brand || item.category}
-                  </p>
-                  <Link to={`/products/${item.id}`}>
-                    <h2
-                      className="font-semibold text-[14px] truncate"
-                      style={{ color: "rgba(255,255,255,0.88)", transition: "color 0.2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.88)"; }}
-                    >
-                      {item.title}
-                    </h2>
+                {/* Top row on mobile: thumbnail + info side by side */}
+                <div className="flex flex-row gap-3 sm:gap-4 sm:flex-1 min-w-0">
+                  {/* Thumbnail */}
+                  <Link
+                    to={`/products/${item.id}`}
+                    className="flex-shrink-0 rounded-[14px] overflow-hidden flex items-center justify-center"
+                    style={{ width: "80px", height: "80px", background: "linear-gradient(145deg, #1e1b14, #161310)" }}
+                  >
+                    <img
+                      src={item.thumbnail} alt={item.title}
+                      loading="lazy" decoding="async"
+                      className="w-full h-full object-contain p-2"
+                      style={{ transition: "transform 0.4s ease" }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.08)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; }}
+                    />
                   </Link>
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} className="text-[10px]"
-                        style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "white" }} />
-                    ))}
-                    <span className="text-[11px] ml-1" style={{ color: "white" }}>
-                      {item.rating?.toFixed(1)}
-                    </span>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                    <p className="text-[9px] uppercase tracking-[3px] font-bold truncate" style={{ color: "var(--gold)" }}>
+                      {item.brand || item.category}
+                    </p>
+                    <Link to={`/products/${item.id}`}>
+                      <h2
+                        className="font-semibold text-[13.5px] sm:text-[14px] truncate"
+                        style={{ color: "rgba(255,255,255,0.88)", transition: "color 0.2s" }}
+                        onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.88)"; }}
+                      >
+                        {item.title}
+                      </h2>
+                    </Link>
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className="text-[10px] flex-shrink-0"
+                          style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "white" }} />
+                      ))}
+                      <span className="text-[11px] ml-1 whitespace-nowrap" style={{ color: "white" }}>
+                        {item.rating?.toFixed(1)}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Price + actions */}
-                <div className="flex flex-col items-end justify-center gap-2.5 flex-shrink-0">
-                  <div className="text-right whitespace-nowrap">
+                {/* Bottom row on mobile: price left, actions right, full width */}
+                <div className="flex items-center justify-between gap-3 pt-2 sm:pt-0 sm:flex-col sm:items-end sm:justify-center sm:gap-2.5 flex-shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div className="text-left sm:text-right whitespace-nowrap flex items-baseline sm:block gap-2">
                     <p className="font-bold text-[18px] text-white leading-none whitespace-nowrap">${item.price}</p>
                     {item.discountPercentage > 0 && (
-                      <p className="text-[11px] line-through mt-1 leading-none whitespace-nowrap" style={{ color: "white" }}>${orig}</p>
+                      <p className="text-[11px] line-through sm:mt-1 leading-none whitespace-nowrap" style={{ color: "white" }}>${orig}</p>
                     )}
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     <button
                       onClick={() => handleToggleWishlist(item)}
                       className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{
                         border: "1px solid rgba(255,255,255,0.1)",
-                        color: wishlistIds.has(item.id) ? "var(--red)" : "rgba(255,255,255,0.35)",
-                        background: wishlistIds.has(item.id) ? "rgba(217,79,61,0.1)" : "transparent",
+                        color: wishlistIds.has(item.id) ? "var(--red)" : "white",
+                        background: wishlistIds.has(item.id) ? "white" : "transparent",
                         transition: "all 0.2s ease",
                       }}
                     >
@@ -459,7 +462,7 @@ function Products() {
                     </button>
                     <button
                       onClick={() => handleAddToCart(item)}
-                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[11.5px] font-semibold"
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[11.5px] font-semibold whitespace-nowrap"
                       style={{
                         background: "linear-gradient(135deg, #d4a843, #c9a84c, #b8922e)",
                         color: "#0f0e0d",
