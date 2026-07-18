@@ -7,10 +7,13 @@ export default async function handler(req, res) {
   const { email, password } = req.body;
 
   try {
-    const targetUrl = `https://${process.env.AUTH0_DOMAIN}/oauth/token`;
-    console.log("DEBUG target URL:", targetUrl);
-    console.log("DEBUG domain length:", (process.env.AUTH0_DOMAIN || "").length);
-    console.log("DEBUG client_id length:", (process.env.AUTH0_CLIENT_ID || "").length);
+    const rawDomain = process.env.AUTH0_DOMAIN || "";
+    const rawClientId = process.env.AUTH0_CLIENT_ID || "";
+    const targetUrl = `https://${rawDomain}/oauth/token`;
+    console.log("DEBUG domain (escaped):", JSON.stringify(rawDomain));
+    console.log("DEBUG domain length:", rawDomain.length, "expected: 33");
+    console.log("DEBUG client_id (escaped):", JSON.stringify(rawClientId));
+    console.log("DEBUG client_id length:", rawClientId.length, "expected: 32");
 
     const response = await fetch(targetUrl, {
       method: "POST",
