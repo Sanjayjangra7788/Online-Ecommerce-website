@@ -114,6 +114,7 @@ function MainLayout() {
     setMobileOpen(false);
     setUserOpen(false);
     setSearchOpen(false);
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [location.pathname]);
 
   useEffect(() => {
