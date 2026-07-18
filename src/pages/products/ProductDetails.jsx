@@ -52,12 +52,12 @@ function ProductDetails() {
   return (
     <div className="fade-up">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-[13px] mb-8" style={{ color: "var(--muted)" }}>
+      <nav className="flex items-center gap-2 text-[13px] mb-8" style={{ color: "var(--white)" }}>
         <Link to="/" className="hover:opacity-60 transition">Home</Link>
         <FaChevronRight className="text-[9px]" />
         <Link to="/products" className="hover:opacity-60 transition">Products</Link>
         <FaChevronRight className="text-[9px]" />
-        <span className="capitalize" style={{ color: "var(--ink)" }}>{product.category}</span>
+        <span className="capitalize" style={{ color: "var(--white)" }}>{product.category}</span>
       </nav>
 
       <div className="grid lg:grid-cols-2 gap-14">
@@ -85,7 +85,7 @@ function ProductDetails() {
           <p className="text-[12px] uppercase tracking-widest font-bold mb-3" style={{ color: "var(--gold)" }}>
             {product.brand || product.category}
           </p>
-          <h1 className="font-display font-semibold mb-4 leading-tight" style={{ fontSize: "clamp(26px,4vw,42px)", color: "var(--ink)" }}>
+          <h1 className="font-display font-semibold mb-4 leading-tight" style={{ fontSize: "clamp(26px,4vw,42px)", color: "var(--white)" }}>
             {product.title}
           </h1>
 
@@ -97,7 +97,7 @@ function ProductDetails() {
               ))}
             </div>
             <span className="font-semibold" style={{ color: "var(--ink)" }}>{product.rating}</span>
-            <span className="text-[13px]" style={{ color: "var(--muted)" }}>({product.reviews?.length || 0} reviews)</span>
+            <span className="text-[13px]" style={{ color: "var(--white)" }}>({product.reviews?.length || 0} reviews)</span>
           </div>
 
           {/* Price */}
@@ -135,7 +135,7 @@ function ProductDetails() {
             <button onClick={handleWishlist}
               className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition hover:scale-110 order-1 sm:order-none"
               style={{ border: "1px solid var(--border)", background: isWishlisted ? "#FFF0F0" : "white" }}>
-              <FaHeart style={{ color: isWishlisted ? "var(--red)" : "var(--border)" }} />
+              <FaHeart style={{ color: isWishlisted ? "var(--red)" : "#b8922e" }} />
             </button>
             <button onClick={handleAddToCart} disabled={product.stock === 0}
               className="flex-1 min-w-[160px] h-12 sm:h-14 rounded-2xl font-semibold text-[14px] sm:text-[15px] flex items-center justify-center gap-3 transition hover:opacity-90 disabled:opacity-50"
@@ -170,14 +170,14 @@ function ProductDetails() {
           {["description","specifications","reviews"].map((tab) => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className="pb-4 px-6 text-[14px] font-semibold capitalize transition"
-              style={{ color: activeTab === tab ? "var(--ink)" : "var(--muted)", borderBottom: activeTab === tab ? "2px solid var(--ink)" : "2px solid transparent", marginBottom: -1 }}>
+              style={{ color: activeTab === tab ? "var(--ink)" : "var(--white)", borderBottom: activeTab === tab ? "2px solid var(--ink)" : "2px solid transparent", marginBottom: -1 }}>
               {tab}{tab === "reviews" ? ` (${product.reviews?.length || 0})` : ""}
             </button>
           ))}
         </div>
 
         {activeTab === "description" && (
-          <p className="text-[15px] leading-8 max-w-[700px]" style={{ color: "var(--muted)" }}>{product.description}</p>
+          <p className="text-[15px] leading-8 max-w-[700px]" style={{ color: "var(--white)" }}>{product.description}</p>
         )}
         {activeTab === "specifications" && (
           <div className="max-w-[600px]">
@@ -185,7 +185,7 @@ function ProductDetails() {
               ["Stock", `${product.stock} units`],["Discount", `${product.discountPercentage?.toFixed(1)}%`],
               ["Return Policy", product.returnPolicy || "30-day return policy"],["Warranty", product.warrantyInformation || "N/A"]
             ].map(([k,v],i) => (
-              <div key={k} className="flex justify-between py-3 px-4 rounded-xl text-[13px]" style={{ background: i%2===0 ? "var(--cream)" : "white" }}>
+              <div key={k} className="flex justify-between py-3 px-4 rounded-xl text-[13px] mb-3" style={{ background: i%2===0 ? "var(--cream)" : "white" }}>
                 <span style={{ color: "var(--muted)" }}>{k}</span>
                 <span className="font-semibold capitalize" style={{ color: "var(--ink)" }}>{v}</span>
               </div>

@@ -296,7 +296,7 @@ function MainLayout() {
                 placeholder="Search for products, brands…"
                 className="flex-1 min-w-0 h-full text-[16px] bg-transparent outline-none" style={{ color: "var(--ink)" }} />
               <button type="button" onClick={() => setSearchOpen(false)} className="flex-shrink-0 hover:opacity-60 transition">
-                <FaTimes style={{ color: "var(--muted)" }} />
+                <FaTimes style={{ color: "var(--white)" }} />
               </button>
             </form>
             <p className="text-center mt-4 text-[13px] opacity-60 text-white">Press Enter to search · ESC to close</p>
