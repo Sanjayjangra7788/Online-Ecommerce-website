@@ -20,10 +20,10 @@ function Wishlist() {
     <div className="fade-up">
       <div className="mb-10">
         <p className="text-[12px] tracking-widest uppercase font-semibold mb-2" style={{ color: "var(--gold)" }}>Saved</p>
-        <h1 className="font-display font-semibold" style={{ fontSize: "clamp(32px,4vw,48px)", color: "var(--ink)" }}>
+        <h1 className="font-display font-semibold" style={{ fontSize: "clamp(32px,4vw,48px)", color: "white" }}>
           My Wishlist
         </h1>
-        <p className="mt-1 text-[14px]" style={{ color: "var(--muted)" }}>
+        <p className="mt-1 text-[14px]" style={{ color: "white" }}>
           {wishlistItems.length === 0 ? "Nothing saved yet" : `${wishlistItems.length} items saved`}
         </p>
       </div>
@@ -32,7 +32,7 @@ function Wishlist() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           className="py-24 text-center rounded-3xl" style={{ background: "white", border: "1px solid var(--border)" }}>
           <div className="text-7xl mb-6">🤍</div>
-          <h2 className="font-display font-semibold text-[36px] mb-3" style={{ color: "var(--ink)" }}>Nothing saved yet</h2>
+          <h2 className="font-display font-semibold text-[36px] mb-3" style={{ color: "white" }}>Nothing saved yet</h2>
           <p className="mb-8" style={{ color: "var(--muted)" }}>Tap the heart on any product to save it here</p>
           <Link to="/products"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-[14px] transition hover:opacity-90"

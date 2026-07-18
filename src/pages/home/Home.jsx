@@ -111,19 +111,19 @@ const FeaturedCard = memo(function FeaturedCard({ item, onAddToCart, onToggleWis
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} className="text-[10px]"
-                style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "rgba(255,255,255,0.12)" }} />
+                style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "white" }} />
             ))}
           </div>
-          <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <span className="text-[11px] font-medium" style={{ color: "white" }}>
             {item.rating?.toFixed(1)}
           </span>
         </div>
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.05)" }} />
-        <div className="flex items-center justify-between gap-2 mt-auto">
-          <div className="flex items-baseline gap-1.5 min-w-0 flex-shrink">
+        <div style={{ height: "1px", background: "white" }} />
+        <div className="flex flex-nowrap items-center justify-between gap-2 mt-auto overflow-hidden">
+          <div className="flex flex-nowrap items-baseline gap-1.5 min-w-0 flex-1 overflow-hidden">
             <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap">${item.price}</span>
             {item.discountPercentage > 0 && (
-              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "rgba(255,255,255,0.25)" }}>${orig}</span>
+              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "white" }}>${orig}</span>
             )}
           </div>
           <button
@@ -315,11 +315,11 @@ function Home() {
           </Link>
         </div>
         {loading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[...Array(8)].map((_, i) => <CardSkeleton key={i} />)}
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {featured.map((item) => (
               <FeaturedCard key={item.id} item={item}
                 onAddToCart={handleAddToCart}

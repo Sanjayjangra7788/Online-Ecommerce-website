@@ -156,7 +156,7 @@ function MainLayout() {
 
             <button onClick={() => setMobileOpen(true)} aria-label="Menu"
               className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-full hover:bg-black/5 transition">
-              <FaBars style={{ color: "var(--white)" }} />
+              <FaBars style={{ color: "var(--white)" ,cursor:"pointer"}} />
             </button>
 
             <Link to="/" className="flex-shrink-0 min-w-0">
@@ -179,11 +179,11 @@ function MainLayout() {
             <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
               <button onClick={() => setSearchOpen(true)} aria-label="Search"
                 className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition flex-shrink-0">
-                <FaSearch className="text-[13px] sm:text-[15px]" style={{ color: "var(--muted)" }} />
+                <FaSearch className="text-[13px] sm:text-[15px]" style={{ color: "var(--white)" }} />
               </button>
 
               <Link to="/wishlist" aria-label="Wishlist" className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-black/5 transition flex-shrink-0">
-                <FaHeart className="text-[15px] sm:text-[17px]" style={{ color: "var(--muted)" }} />
+                <FaHeart className="text-[15px] sm:text-[17px]" style={{ color: "var(--white)" }} />
                 {wishlistCount > 0 && (
                   <span className="badge-pulse absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white text-[9px] flex items-center justify-center font-bold"
                     style={{ background: "var(--red)" }}>{wishlistCount}</span>
@@ -212,7 +212,7 @@ function MainLayout() {
                       {authUser?.name ? authUser.name[0].toUpperCase() : <FaUser className="text-[11px]" />}
                     </div>
                   )}
-                  <FaChevronDown className="text-[10px]" style={{ color: "var(--muted)" }} />
+                  <FaChevronDown className="text-[10px]" style={{ color: "var(--white)" }} />
                 </button>
 
                 {userOpen && (
@@ -275,7 +275,7 @@ function MainLayout() {
       </header>
 
       {searchOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[120px] px-5"
+        <div className="fixed inset-0 z-[1000] flex items-start justify-center pt-[120px] px-5"
           style={{ background: "rgba(15,14,13,0.6)", backdropFilter: "blur(8px)" }}
           onClick={() => setSearchOpen(false)}>
           <div className="w-full max-w-[680px]" onClick={(e) => e.stopPropagation()}>
@@ -295,14 +295,14 @@ function MainLayout() {
       )}
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-[100] flex lg:hidden">
+        <div className="fixed inset-0 z-[1000] flex lg:hidden">
           <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.5)" }} onClick={() => setMobileOpen(false)} />
           <div className="relative w-[82vw] max-w-[280px] flex flex-col shadow-2xl" style={{ background: "white" }}>
             <div className="flex items-center justify-between px-5 h-[68px]" style={{ borderBottom: "1px solid var(--border)" }}>
               <Link to="/" className="font-display text-[26px] font-bold">
                 <span style={{ color: "var(--ink)" }}>San</span><span style={{ color: "var(--gold)" }}>Vora</span>
               </Link>
-              <button onClick={() => setMobileOpen(false)} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5">
+              <button onClick={() => setMobileOpen(false)} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5" style={{ color: "var(--ink)" }}>
                 <FaTimes />
               </button>
             </div>

@@ -129,29 +129,29 @@ const ProductCard = memo(function ProductCard({ item, onAddToCart, onToggleWishl
               <FaStar
                 key={i}
                 className="text-[10px]"
-                style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "rgba(255,255,255,0.12)" }}
+                style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "white" }}
               />
             ))}
           </div>
-          <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <span className="text-[11px] font-medium" style={{ color: "white" }}>
             {item.rating?.toFixed(1)}
           </span>
-          <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>
+          <span className="text-[10px]" style={{ color: "white" }}>
             ({item.stock} in stock)
           </span>
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.05)" }} />
+        <div style={{ height: "1px", background: "white" }} />
 
         {/* Price + CTA */}
-        <div className="flex items-center justify-between gap-2 mt-auto">
-          <div className="flex items-baseline gap-1.5 min-w-0 flex-shrink">
+        <div className="flex flex-nowrap items-center justify-between gap-2 mt-auto overflow-hidden">
+          <div className="flex flex-nowrap items-baseline gap-1.5 min-w-0 flex-1 overflow-hidden">
             <span className="font-bold text-[16px] sm:text-[19px] text-white leading-none whitespace-nowrap">
               ${item.price}
             </span>
             {item.discountPercentage > 0 && (
-              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "rgba(255,255,255,0.25)" }}>
+              <span className="text-[10px] sm:text-[11px] line-through whitespace-nowrap" style={{ color: "white" }}>
                 ${orig}
               </span>
             )}
@@ -273,7 +273,7 @@ function Products() {
       <div className="mb-8">
         <p className="text-[12px] tracking-widest uppercase font-bold mb-2" style={{ color: "var(--gold)" }}>Catalogue</p>
         <h1 className="font-display font-semibold" style={{ fontSize: "clamp(36px,5vw,52px)", color: "var(--white)" }}>All Products</h1>
-        <p className="mt-2 text-[14px]" style={{ color: "var(--muted)" }}>
+        <p className="mt-2 text-[14px]" style={{ color: "var(--white)" }}>
           {loading ? "Loading…" : `${filtered.length} products`}
         </p>
       </div>
@@ -428,9 +428,9 @@ function Products() {
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <FaStar key={i} className="text-[10px]"
-                        style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "rgba(255,255,255,0.12)" }} />
+                        style={{ color: i < Math.floor(item.rating) ? "#f59e0b" : "white" }} />
                     ))}
-                    <span className="text-[11px] ml-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <span className="text-[11px] ml-1" style={{ color: "white" }}>
                       {item.rating?.toFixed(1)}
                     </span>
                   </div>
@@ -438,10 +438,10 @@ function Products() {
 
                 {/* Price + actions */}
                 <div className="flex flex-col items-end justify-center gap-2.5 flex-shrink-0">
-                  <div className="text-right">
-                    <p className="font-bold text-[18px] text-white leading-none">${item.price}</p>
+                  <div className="text-right whitespace-nowrap">
+                    <p className="font-bold text-[18px] text-white leading-none whitespace-nowrap">${item.price}</p>
                     {item.discountPercentage > 0 && (
-                      <p className="text-[11px] line-through mt-0.5" style={{ color: "rgba(255,255,255,0.25)" }}>${orig}</p>
+                      <p className="text-[11px] line-through mt-1 leading-none whitespace-nowrap" style={{ color: "white" }}>${orig}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-2">

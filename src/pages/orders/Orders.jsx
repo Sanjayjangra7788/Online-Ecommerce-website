@@ -55,7 +55,7 @@ function Orders() {
           className="font-display font-semibold"
           style={{
             fontSize: "clamp(32px,4vw,48px)",
-            color: "var(--ink)",
+            color: "white",
           }}
         >
           My Orders
@@ -63,7 +63,7 @@ function Orders() {
 
         <p
           className="mt-1 text-[14px]"
-          style={{ color: "var(--muted)" }}
+          style={{ color: "var(--white)" }}
         >
           {orders.length === 0
             ? "No orders placed yet"

@@ -20,7 +20,7 @@ function Profile() {
     <div className="fade-up max-w-[720px] mx-auto">
       <div className="mb-10">
         <p className="text-[12px] tracking-widest uppercase font-semibold mb-2" style={{ color: "var(--gold)" }}>Account</p>
-        <h1 className="font-display font-semibold" style={{ fontSize: "clamp(32px,4vw,48px)", color: "var(--ink)" }}>My Profile</h1>
+        <h1 className="font-display font-semibold" style={{ fontSize: "clamp(32px,4vw,48px)", color: "white" }}>My Profile</h1>
       </div>
 
       {/* Profile card */}
