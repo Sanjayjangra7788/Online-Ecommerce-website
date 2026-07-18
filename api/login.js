@@ -7,7 +7,12 @@ export default async function handler(req, res) {
   const { email, password } = req.body;
 
   try {
-    const response = await fetch(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
+    const targetUrl = `https://${process.env.AUTH0_DOMAIN}/oauth/token`;
+    console.log("DEBUG target URL:", targetUrl);
+    console.log("DEBUG domain length:", (process.env.AUTH0_DOMAIN || "").length);
+    console.log("DEBUG client_id length:", (process.env.AUTH0_CLIENT_ID || "").length);
+
+    const response = await fetch(targetUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -20,7 +25,19 @@ export default async function handler(req, res) {
       }),
     });
 
-    const data = await response.json();
+    const rawText = await response.text();
+    console.log("DEBUG raw response:", rawText.slice(0, 300));
+
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      return res.status(502).json({
+        error: "bad_upstream_response",
+        error_description: rawText.slice(0, 200),
+        debug_url: targetUrl,
+      });
+    }
 
     if (!response.ok) {
       return res.status(response.status).json(data);
