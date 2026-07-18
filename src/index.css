@@ -281,6 +281,16 @@ select:focus {
   overflow: hidden;
 }
 
+/* Mobile browsers (iOS Safari / Android Chrome) mis-calculate
+   background-size:cover against the full document height when
+   background-attachment:fixed is used, causing the image to zoom
+   in and lose detail. Switch to scroll below 768px. */
+@media (max-width: 768px) {
+  .luxury-home-bg {
+    background-attachment: scroll;
+  }
+}
+
 /* =========================
    GLASS CARD
 ========================= */
