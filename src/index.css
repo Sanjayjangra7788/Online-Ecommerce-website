@@ -262,6 +262,22 @@ select:focus {
   min-height: 100vh;
   min-height: 100dvh; /* iOS Safari: real visible viewport, avoids jump when address bar hides/shows */
 
+  position: relative;
+
+  overflow: hidden;
+}
+
+/* Background lives on a fixed, viewport-sized pseudo-element instead of
+   directly on this (tall) container. This is the reliable cross-device fix:
+   background-attachment:fixed on the container itself makes background-size:cover
+   compute against the container's own (much taller than viewport) height on
+   some mobile browsers, causing the zoomed/cropped look. A position:fixed
+   pseudo-element always sizes against the viewport, everywhere, consistently. */
+.luxury-home-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background:
   linear-gradient(
     rgba(0,0,0,0.28),
@@ -274,22 +290,6 @@ select:focus {
   background-position: center;
 
   background-repeat: no-repeat;
-
-  background-attachment: fixed;
-
-  position: relative;
-
-  overflow: hidden;
-}
-
-/* Mobile browsers (iOS Safari / Android Chrome) mis-calculate
-   background-size:cover against the full document height when
-   background-attachment:fixed is used, causing the image to zoom
-   in and lose detail. Switch to scroll below 768px. */
-@media (max-width: 768px) {
-  .luxury-home-bg {
-    background-attachment: scroll;
-  }
 }
 
 /* =========================
