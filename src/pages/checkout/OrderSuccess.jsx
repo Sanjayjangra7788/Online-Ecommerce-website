@@ -39,7 +39,7 @@ function OrderSuccess() {
         <h1 className="font-display font-semibold mb-2" style={{ fontSize: "clamp(28px,4vw,42px)", color: "var(--ink)" }}>
           Order Confirmed!
         </h1>
-        <p className="text-[15px]" style={{ color: "var(--muted)" }}>
+        <p className="text-[15px]" style={{ color: "var(--white)" }}>
           Thank you for your purchase. Your order is being processed.
         </p>
       </motion.div>

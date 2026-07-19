@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash, FaArrowRight, FaGoogle, FaGithub } from "react-icons
 import { motion, AnimatePresence } from "framer-motion";
 import { auth0Config } from "../../auth/auth0Config";
 import { encryptPayload } from "../../utils/cryptoClient";
+import { setRole } from "../../utils/sellerStore";
 
 const DOMAIN   = auth0Config.domain;
 const CLIENT_ID = auth0Config.clientId;
@@ -15,6 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   const [isRegister, setIsRegister] = useState(false);
+  const [wantsToSell, setWantsToSell] = useState(false);
   const [name,       setName]       = useState("");
   const [email,      setEmail]      = useState("");
   const [password,   setPassword]   = useState("");
@@ -78,6 +80,7 @@ function Login() {
         "Registration failed"
       );
     }
+    setRole(email, wantsToSell ? "seller" : "buyer", name);
 
     // Register ke baad auto login
     await handleLogin();
@@ -197,6 +200,18 @@ function Login() {
                     className="w-full h-[50px] px-5 rounded-xl text-[14px] transition"
                     style={{ background: "var(--cream)", border: "1px solid var(--border)", color: "var(--ink)" }}
                   />
+
+                  <label className="flex items-center gap-3 mt-4 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={wantsToSell}
+                      onChange={(e) => setWantsToSell(e.target.checked)}
+                      className="w-[18px] h-[18px] rounded accent-[var(--gold)] cursor-pointer"
+                    />
+                    <span className="text-[13px] font-medium" style={{ color: "var(--ink)" }}>
+                      I want to sell products on SanVora
+                    </span>
+                  </label>
                 </motion.div>
               )}
             </AnimatePresence>

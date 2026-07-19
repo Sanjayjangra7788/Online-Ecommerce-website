@@ -1,7 +1,7 @@
-
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
+import RoleProtectedRoute from "./RoleProtectedRoute";
 import { Suspense, lazy } from "react";
 
 const Home           = lazy(() => import("../pages/home/Home"));
@@ -16,6 +16,10 @@ const Orders         = lazy(() => import("../pages/orders/Orders"));
 const Shipping       = lazy(() => import("../pages/checkout/Shipping"));
 const Payment        = lazy(() => import("../pages/checkout/Payment"));
 const OrderSuccess   = lazy(() => import("../pages/checkout/OrderSuccess"));
+const SellerDashboard= lazy(()=> import ('../pages/seller/SellerDashboard'))
+const AddProduct =     lazy(()=> import ('../pages/seller/AddProduct'))
+const EditProduct =    lazy(()=> import ('../pages/seller/EditProduct'))
+const AdminDashboard = lazy(()=> import ('../pages/admin/AdminDashboard'))
 
 function PageLoader() {
   return (
@@ -33,6 +37,7 @@ function PageLoader() {
 
 function AppRoutes() {
   return (
+    // ⚠️ BrowserRouter NAHI hai yahan — main.jsx mein hai
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index              element={<Suspense fallback={<PageLoader />}><Home /></Suspense>} />
@@ -49,6 +54,14 @@ function AppRoutes() {
         <Route path="shipping"      element={<Suspense fallback={<PageLoader />}><ProtectedRoute><Shipping /></ProtectedRoute></Suspense>} />
         <Route path="payment"       element={<Suspense fallback={<PageLoader />}><ProtectedRoute><Payment /></ProtectedRoute></Suspense>} />
         <Route path="order-success" element={<Suspense fallback={<PageLoader />}><ProtectedRoute><OrderSuccess /></ProtectedRoute></Suspense>} />
+
+        {/* Seller Routes — sirf role: 'seller' (aur 'admin') ke liye */}
+        <Route path="seller/dashboard"    element={<Suspense fallback={<PageLoader />}><RoleProtectedRoute allowedRoles={["seller", "admin"]}><SellerDashboard /></RoleProtectedRoute></Suspense>} />
+        <Route path="seller/add-product"  element={<Suspense fallback={<PageLoader />}><RoleProtectedRoute allowedRoles={["seller", "admin"]}><AddProduct /></RoleProtectedRoute></Suspense>} />
+        <Route path="seller/edit-product/:id" element={<Suspense fallback={<PageLoader />}><RoleProtectedRoute allowedRoles={["seller", "admin"]}><EditProduct /></RoleProtectedRoute></Suspense>} />
+
+        {/* Admin Route — sirf role: 'admin' ke liye */}
+        <Route path="admin"  element={<Suspense fallback={<PageLoader />}><RoleProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></RoleProtectedRoute></Suspense>} />
       </Route>
     </Routes>
   );

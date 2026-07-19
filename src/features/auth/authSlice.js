@@ -45,6 +45,7 @@
 
 
 import { createSlice } from "@reduxjs/toolkit";
+import { getRole } from "../../utils/sellerStore";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -57,12 +58,12 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
-    // Token ab kabhi Redux/localStorage me nahi aata — httpOnly cookie me
-    // server-side set hota hai. Yahan sirf user profile store hota hai.
+   
     loginSuccess: (state, action) => {
-      state.user = action.payload.user;
+      const role = getRole(action.payload.user.email);
+      state.user = { ...action.payload.user, role };
       state.isAuthenticated = true;
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("user", JSON.stringify(state.user));
     },
 
     // Auth0 logout ke baad Redux bhi clear karo

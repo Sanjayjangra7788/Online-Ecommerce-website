@@ -42,7 +42,7 @@ function Shipping() {
                 }}>
                 {i + 1}
               </div>
-              <span className="text-[10px] sm:text-[11px] mt-1.5 font-medium whitespace-nowrap" style={{ color: i === 0 ? "var(--ink)" : "var(--muted)" }}>{step}</span>
+              <span className="text-[10px] sm:text-[11px] mt-1.5 font-medium whitespace-nowrap" style={{ color: i === 0 ? "var(--ink)" : "var(--white)" }}>{step}</span>
             </div>
             {i < STEPS.length - 1 && (
               <div className="w-8 sm:w-20 h-[2px] mb-4" style={{ background: "var(--border)" }} />

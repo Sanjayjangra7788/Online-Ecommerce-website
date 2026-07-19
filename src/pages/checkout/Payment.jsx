@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePaymentMethod, addOrder } from "../../features/order/orderSlice";
 import { clearCart } from "../../features/cart/cartSlice";
+import { updateLocalProduct } from "../../features/products/productSlice";
+import { decrementStock } from "../../utils/sellerStore";
 import { FaCreditCard, FaPaypal, FaArrowRight, FaLock, FaCheckCircle } from "react-icons/fa";
 
 const STEPS = ["Shipping", "Payment", "Confirm"];
@@ -21,6 +23,7 @@ function Payment() {
 
   const cartItems      = useSelector((s) => s.cart.cartItems);
   const shippingAddress = useSelector((s) => s.order.shippingAddress);
+  const user            = useSelector((s) => s.auth.user);
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = subtotal >= 100 ? 0 : 9.99;
@@ -41,8 +44,20 @@ function Payment() {
       shippingAddress,
       orderItems:   cartItems,
       totalPrice:   total,
+      buyerEmail:   user?.email || "",
+      buyerName:    user?.name || shippingAddress?.fullName || "",
     };
     dispatch(addOrder(order));
+
+    cartItems.forEach((item) => {
+      if (item.isSellerProduct) {
+        const updated = decrementStock(item.id, item.quantity);
+        if (updated) {
+          dispatch(updateLocalProduct({ id: item.id, patch: { stock: updated.stock } }));
+        }
+      }
+    });
+
     dispatch(clearCart());
 
     await new Promise((r) => setTimeout(r, 800));
@@ -63,7 +78,7 @@ function Payment() {
                 }}>
                 {i < 1 ? "✓" : i + 1}
               </div>
-              <span className="text-[10px] sm:text-[11px] mt-1.5 font-medium whitespace-nowrap" style={{ color: i <= 1 ? "var(--ink)" : "var(--muted)" }}>{step}</span>
+              <span className="text-[10px] sm:text-[11px] mt-1.5 font-medium whitespace-nowrap" style={{ color: i <= 1 ? "var(--ink)" : "var(--white)" }}>{step}</span>
             </div>
             {i < STEPS.length - 1 && (
               <div className="w-8 sm:w-20 h-[2px] mb-4" style={{ background: i < 1 ? "var(--gold)" : "var(--border)" }} />

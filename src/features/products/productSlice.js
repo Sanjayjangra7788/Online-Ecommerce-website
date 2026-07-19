@@ -1,16 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axios";
+import { getSellerProducts, SELLER_ID_BASE } from "../../utils/sellerStore";
+
+function withSellerProducts(apiProducts) {
+  const dummyOnly = apiProducts.filter((p) => p.id < SELLER_ID_BASE);
+  return [...getSellerProducts(), ...dummyOnly];
+}
 
 // ── Cache: avoid re-fetching if products already loaded ──────────────────────
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (_, { getState, rejectWithValue }) => {
     const existing = getState().products.products;
-    if (existing.length > 0) return existing; // ← cache hit, no network request
+    if (existing.length > 0) return withSellerProducts(existing); // cache hit — re-merge in case seller products changed
     try {
       // Fetch 100 (not 200) – 200 items doubles parse time with no visible benefit
       const res = await axiosInstance.get("/products?limit=100");
-      return res.data.products;
+      return withSellerProducts(res.data.products);
     } catch (err) {
       return rejectWithValue(err.response?.data);
     }
@@ -45,6 +51,23 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     clearSingleProduct(state) { state.singleProduct = null; },
+
+    addLocalProduct(state, action) {
+      state.products = [action.payload, ...state.products];
+    },
+    removeLocalProduct(state, action) {
+      state.products = state.products.filter((p) => p.id !== action.payload);
+    },
+ 
+    updateLocalProduct(state, action) {
+      const { id, patch } = action.payload;
+      state.products = state.products.map((p) =>
+        p.id === id ? { ...p, ...patch } : p
+      );
+      if (state.singleProduct?.id === id) {
+        state.singleProduct = { ...state.singleProduct, ...patch };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,5 +92,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { clearSingleProduct } = productSlice.actions;
+export const { clearSingleProduct, addLocalProduct, removeLocalProduct, updateLocalProduct } = productSlice.actions;
 export default productSlice.reducer;

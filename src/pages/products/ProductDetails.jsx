@@ -170,7 +170,7 @@ function ProductDetails() {
           {["description","specifications","reviews"].map((tab) => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className="pb-4 px-6 text-[14px] font-semibold capitalize transition"
-              style={{ color: activeTab === tab ? "var(--ink)" : "var(--white)", borderBottom: activeTab === tab ? "2px solid var(--ink)" : "2px solid transparent", marginBottom: -1 }}>
+              style={{ color: activeTab === tab ? "rgb(212, 168, 67)" : "var(--white)", borderBottom: activeTab === tab ? "2px solid rgb(212, 168, 67)" : "2px solid transparent", marginBottom: -1 }}>
               {tab}{tab === "reviews" ? ` (${product.reviews?.length || 0})` : ""}
             </button>
           ))}
@@ -212,7 +212,7 @@ function ProductDetails() {
                 </div>
                 <p className="text-[13px] leading-6" style={{ color: "var(--muted)" }}>{r.comment}</p>
               </div>
-            )) : <p style={{ color: "var(--muted)" }}>No reviews yet.</p>}
+            )) : <p style={{ color: "var(--white)" }}>No reviews yet.</p>}
           </div>
         )}
       </div>

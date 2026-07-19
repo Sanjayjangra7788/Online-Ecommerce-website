@@ -4,6 +4,7 @@ import {
   FaShoppingCart, FaHeart, FaSearch, FaTimes, FaBars,
   FaInstagram, FaTwitter, FaFacebookF, FaYoutube, FaUser,
   FaSignOutAlt, FaClipboardList, FaChevronDown, FaArrowUp,
+  FaStore, FaCrown,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import useAuth0Sync from "../auth/useAuth0Sync";
@@ -247,6 +248,16 @@ function MainLayout() {
                         <Link to="/wishlist" className="flex items-center gap-3 px-5 py-3 text-[13px] hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
                           <FaHeart className="text-[12px] opacity-50" /> Wishlist
                         </Link>
+                        {(authUser?.role === "seller" || authUser?.role === "admin") && (
+                          <Link to="/seller/dashboard" className="flex items-center gap-3 px-5 py-3 text-[13px] hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
+                            <FaStore className="text-[12px] opacity-50" /> Seller Dashboard
+                          </Link>
+                        )}
+                        {authUser?.role === "admin" && (
+                          <Link to="/admin" className="flex items-center gap-3 px-5 py-3 text-[13px] hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
+                            <FaCrown className="text-[12px] opacity-50" /> Admin Panel
+                          </Link>
+                        )}
                         <div style={{ borderTop: "1px solid var(--border)" }}>
                           <button onClick={handleLogout}
                             className="flex items-center gap-3 px-5 py-3 text-[13px] w-full text-left hover:bg-red-50 transition"
@@ -322,6 +333,16 @@ function MainLayout() {
                   {label}
                 </Link>
               ))}
+              {(authUser?.role === "seller" || authUser?.role === "admin") && (
+                <Link to="/seller/dashboard" className="flex items-center h-12 px-4 rounded-xl text-[15px] font-medium hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
+                  Seller Dashboard
+                </Link>
+              )}
+              {authUser?.role === "admin" && (
+                <Link to="/admin" className="flex items-center h-12 px-4 rounded-xl text-[15px] font-medium hover:bg-black/5 transition" style={{ color: "var(--ink)" }}>
+                  Admin Panel
+                </Link>
+              )}
             </nav>
             <div className="px-5 py-5" style={{ borderTop: "1px solid var(--border)" }}>
               {isAuthenticated ? (
